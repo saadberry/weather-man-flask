@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report</title>
+</head>
+<body>
+    {% if show_task_one  %}
+        <h1>Weather Report</h1>
+            <!-- If no data returned -->
+            {% if not result %}
+                <p>No data available for the selected year.</p>
+            {% endif %}
+
+            {% for day, data in result.items() %}
+                <ul>
+                    {% for key, value in data.items() %}
+                        <li><b>{{ key }}</b>: {{ value[0] }} C on {{ months[value[1]] }} {{ value[2] }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+    {% endif %}
+    
+    {% if show_task_two %}
+                
+                {% if error %}
+                    <h2> An unexpected error occurred </h2>
+                {% endif %}
+
+        <h1>Weather Report for Task Two</h1>
+        {% for key, value in result.items() %}
+            <ul>
+
+                {% for key, v in value.items() %}
+                <li><b>{{ key }}</b>: {{ v }} C </li>
+                {% endfor %}
+
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    {% if show_task_three %}
+        <h1>Weather Report for Task Three</h1>
+        {% for key, data in result[3].items() %}
+            <ul>
+                {% if data[0] %}
+                    <li>{{ key }}: <span style="color: red;">{{ data[0] }}</span> {{ len(data[0]) }}C</li>
+                {% endif %}
+                {% if data[1] %}
+                    <li>{{ key }}: <span style="color: cyan;">{{ data[1] }}</span> {{ len(data[1]) }}C</li>
+                {% endif %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
