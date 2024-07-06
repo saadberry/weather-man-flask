@@ -75,7 +75,7 @@ class MyRoutes:
         result = report.display_report(cli=False)
         months = list(calendar.month_name)
         
-
+        print(f'result: {result}')
         # self.weather_data
         # return f'<h1> Result: </h1> <h2>{result}</h2>'
         return render_template('report.html', result=result, months=months, show_task_one=True, show_task_two=False)
@@ -123,26 +123,29 @@ class MyRoutes:
         """
         Method that handles multiple queries
         Example: 
-            -multiple_reports?task_one=true&y1=2008&task_two=true&y2=2008&m2=10&task_three=true&y3=2008&m3=10
+            -multiple_reports?task1=true&y1=2008&task2=true&y2=2008&m2=10&task3=true&y3=2008&m3=10
         """
+        print(f'in method')
+
         weather_data = WeatherData()
         report = GenerateReports()
         calc_temp = CalculateTemp(weather_data, report)
 
         # Parsing request
-        task_one = request.args.get('task_one')
+        task_one = request.args.get('task1')
         if task_one:
             year_one = request.args.get('y1')
+            print(f'YAER: {year_one}')
             report.generate_report(1, calc_temp.task_one(year_one))
 
-        task_two = request.args.get('task_two')
+        task_two = request.args.get('task2')
         if task_two:
             year_two = request.args.get('y2')
             month_two = request.args.get('m2')
             date_to_be_queried = f'{year_two}/{month_two}'
             report.generate_report(2, calc_temp.task_two(date_to_be_queried))
 
-        task_three = request.args.get('task_three')
+        task_three = request.args.get('task3')
         if task_three:
             year_three = request.args.get('y3')
             month_three = request.args.get('m3')
