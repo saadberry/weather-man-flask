@@ -40,9 +40,7 @@ class MyRoutes:
     def __init__(self, app):
         self.app = app
         self.setup_routes()
-        # weather_data = WeatherData()
-        # self.report = GenerateReports()
-        # self.calc_temp = CalculateTemp(weather_data, self.report)
+
 
 
     def setup_routes(self):
@@ -54,13 +52,29 @@ class MyRoutes:
         self.app.add_url_rule('/task2', 'task_two', self.task_two)
         self.app.add_url_rule('/task3', 'task_three', self.task_three)
         self.app.add_url_rule('/multiple_reports', 'multiple_reports', self.multiple_reports)
-
+        self.app.add_url_rule('/api/query', 'query db', self.query_db, methods=['POST'])
 
 
     def hello_world(self):
-        return render_template('index.html')
+        # return render_template('index.html')
 
-    def task_one(self):
+    def query_db(self):
+        """
+        Endpoint that accepts a query from the UI
+        """
+        data = request.get_json()
+        options = data.get('options', [])
+        print(f'options: {options}')
+        if len(options) == 1:
+            for option in options:
+                if option == 'one':
+                   return self.task_one(default=True)
+                # elif option == 'two':
+
+                # elif option == 'three':
+        return {"status": 200}
+        
+    def task_one(self, default=False):
         """
         Method that queries for task one
         Parameters:
@@ -69,8 +83,11 @@ class MyRoutes:
         weather_data = WeatherData()
         report = GenerateReports()
         calc_temp = CalculateTemp(weather_data, report)
-
-        year = request.args.get('y')
+        if default:
+            year = str(2010)
+        else:
+            year = request.args.get('y')
+        print(f'year: {year}, type: {type(year)}')
         report.generate_report(1, calc_temp.task_one(year))
         result = report.display_report(cli=False)
         months = list(calendar.month_name)
@@ -153,8 +170,10 @@ class MyRoutes:
             report.generate_report(3, calc_temp.task_three(date_to_be_queried))
 
         result = report.display_report(cli=False)
+        print(f'result: {result}')
+        months = list(calendar.month_name)
 
-        return render_template('report.html', result=result, show_task_one=False, show_task_two=task_two, show_task_three=task_three, len=len)
+        return render_template('report.html', result=result, show_task_one=task_one, show_task_two=task_two, show_task_three=task_three, len=len, months=months)
 
 
 

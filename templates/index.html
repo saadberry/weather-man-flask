@@ -1,6 +1,44 @@
 <html>
     <head>
         <title>Weather.co</title>
+        <!-- <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log(`WE IN!!`);
+                const form = document.querySelector("form");
+                console.log(`form: ${JSON.stringify(form)}`);
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Prevent the default form submission
+                    console.log(`submit called`);
+                    handleFormSubmit();
+                });
+    
+                function handleFormSubmit() {
+                    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                    const selectedOptions = Array.from(checkedBoxes).map(box => box.value);
+                    console.log(`[handleFormSubmit] selectedOptions: ${JSON.stringify(selectedOptions)}`);
+                    // Example API call function
+                    callAPI(selectedOptions);
+                }
+    
+                function callAPI(options) {
+                    // Fetch call to an API endpoint
+                    fetch('/api/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ options: options }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        </script> -->
     </head>
     <body>
         <h1>About</h1>
@@ -10,13 +48,13 @@
             <li> Murree, Pakistan. Data from 2006-2012. </li>
         </ul>
         <h2>Query database</h2>
-        <form>
+        <!-- <form>
             <label for="location"><b> Select a Location: </b></label>
             <select id="location" name="location">
                 <option value="" disabled selected>City, Country</option>
                 <option value="murree">Murree, Pakistan</option>
             </select>
-        </form>
+        </form> -->
         <form>
             <p> <b> Select option: </b> </p>
             
@@ -40,9 +78,8 @@
                     For a given month draw two horizontal bar charts on the console for the highest and lowest temperature on each day.
                 </label>
             </div>
-            
+            <button type="submit">Search</button>
     </form>
 
-    <button>Search</button>
     </body>
 </html>
