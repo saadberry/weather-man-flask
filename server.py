@@ -56,7 +56,7 @@ class MyRoutes:
 
 
     def hello_world(self):
-        # return render_template('index.html')
+        return render_template('index.html')
 
     def query_db(self):
         """

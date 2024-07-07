@@ -55,7 +55,7 @@
                 <option value="murree">Murree, Pakistan</option>
             </select>
         </form> -->
-        <form>
+        <!-- <form>
             <p> <b> Select option: </b> </p>
             
             <div>
@@ -79,7 +79,47 @@
                 </label>
             </div>
             <button type="submit">Search</button>
-    </form>
+    </form> -->
+    <h4> The following options are available: </h4>
+    <ol>
+        <li>
+            For a given year display the highest temperature and day, lowest temperature and day, most humid day and humidity.
+            <ul>
+                <li> <b>Endpoint</b>: /task1 </li>
+                <li> <b>Required params</b>: (1) y -> year to query </li>
+                <li> <b>For example</b>: /task1?y=2010 </li>
+            </ul>
+        </li>
 
+        <li>
+            For a given month display the average highest temperature, average lowest temperature, average mean humidity.
+            <ul>
+                <li> <b>Endpoint</b>: /task2 </li>
+                <li> <b>Required params</b>: (1) y -> year to query (2) m -> month to query </li>
+                <li> <b>For example</b>: /task2?y=2010&m=2 </li>
+            </ul>
+
+        </li>
+
+        <li>
+            For a given month draw two horizontal bar charts on the console for the highest and lowest temperature on each day.
+            <ul>
+                <li> <b>Endpoint</b>: /task3 </li>
+                <li> <b>Required params</b>: (1) y -> year to query (2) m -> month to query </li>
+                <li> <b>For example</b>: /task3?y=2010&m=2 </li>
+            </ul>
+        </li>
+
+        <li>
+            Multiple reports - Generate reports of more than one task.
+            <ul>
+                <li> <b>Endpoint</b>: /multiple_reports </li>
+                <li> <b>Params</b>: Params of respective tasks will be the same. An additional taskX=true will be passed if we want to generate report of a specific task. </li>
+                <li>Params will be named as y<b>X</b> and m<b>X</b>, where X -> task number </li>
+                <li><b>For example</b>: Params for task1 will be 'y<b>1</b>'. 'y<b>2</b>' & 'm<b>2</b>' for task2, and so on.</li>
+                <li> <b>For example</b>: /multiple_reports?task1=true&y1=2011&task2=true&y2=2010&m2=2 </li>
+            </ul>
+        </li>
+    </ol>
     </body>
 </html>
