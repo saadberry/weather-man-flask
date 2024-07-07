@@ -1,6 +1,44 @@
 <html>
     <head>
         <title>Weather.co</title>
+        <!-- <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log(`WE IN!!`);
+                const form = document.querySelector("form");
+                console.log(`form: ${JSON.stringify(form)}`);
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Prevent the default form submission
+                    console.log(`submit called`);
+                    handleFormSubmit();
+                });
+    
+                function handleFormSubmit() {
+                    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                    const selectedOptions = Array.from(checkedBoxes).map(box => box.value);
+                    console.log(`[handleFormSubmit] selectedOptions: ${JSON.stringify(selectedOptions)}`);
+                    // Example API call function
+                    callAPI(selectedOptions);
+                }
+    
+                function callAPI(options) {
+                    // Fetch call to an API endpoint
+                    fetch('/api/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ options: options }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        </script> -->
     </head>
     <body>
         <h1>About</h1>
@@ -10,14 +48,14 @@
             <li> Murree, Pakistan. Data from 2006-2012. </li>
         </ul>
         <h2>Query database</h2>
-        <form>
+        <!-- <form>
             <label for="location"><b> Select a Location: </b></label>
             <select id="location" name="location">
                 <option value="" disabled selected>City, Country</option>
                 <option value="murree">Murree, Pakistan</option>
             </select>
-        </form>
-        <form>
+        </form> -->
+        <!-- <form>
             <p> <b> Select option: </b> </p>
             
             <div>
@@ -40,9 +78,48 @@
                     For a given month draw two horizontal bar charts on the console for the highest and lowest temperature on each day.
                 </label>
             </div>
-            
-    </form>
+            <button type="submit">Search</button>
+    </form> -->
+    <h4> The following options are available: </h4>
+    <ol>
+        <li>
+            For a given year display the highest temperature and day, lowest temperature and day, most humid day and humidity.
+            <ul>
+                <li> <b>Endpoint</b>: /task1 </li>
+                <li> <b>Required params</b>: (1) y -> year to query </li>
+                <li> <b>For example</b>: /task1?y=2010 </li>
+            </ul>
+        </li>
 
-    <button>Search</button>
+        <li>
+            For a given month display the average highest temperature, average lowest temperature, average mean humidity.
+            <ul>
+                <li> <b>Endpoint</b>: /task2 </li>
+                <li> <b>Required params</b>: (1) y -> year to query (2) m -> month to query </li>
+                <li> <b>For example</b>: /task2?y=2010&m=2 </li>
+            </ul>
+
+        </li>
+
+        <li>
+            For a given month draw two horizontal bar charts on the console for the highest and lowest temperature on each day.
+            <ul>
+                <li> <b>Endpoint</b>: /task3 </li>
+                <li> <b>Required params</b>: (1) y -> year to query (2) m -> month to query </li>
+                <li> <b>For example</b>: /task3?y=2010&m=2 </li>
+            </ul>
+        </li>
+
+        <li>
+            Multiple reports - Generate reports of more than one task.
+            <ul>
+                <li> <b>Endpoint</b>: /multiple_reports </li>
+                <li> <b>Params</b>: Params of respective tasks will be the same. An additional taskX=true will be passed if we want to generate report of a specific task. </li>
+                <li>Params will be named as y<b>X</b> and m<b>X</b>, where X -> task number </li>
+                <li><b>For example</b>: Params for task1 will be 'y<b>1</b>'. 'y<b>2</b>' & 'm<b>2</b>' for task2, and so on.</li>
+                <li> <b>For example</b>: /multiple_reports?task1=true&y1=2011&task2=true&y2=2010&m2=2 </li>
+            </ul>
+        </li>
+    </ol>
     </body>
 </html>

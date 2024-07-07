@@ -7,17 +7,19 @@
 </head>
 <body>
     {% if show_task_one  %}
-        <h1>Weather Report</h1>
+        <h1>Weather Report for Task 1</h1>
             <!-- If no data returned -->
             {% if not result %}
                 <p>No data available for the selected year.</p>
             {% endif %}
 
-            {% for day, data in result.items() %}
-                <ul>
-                    {% for key, value in data.items() %}
-                        <li><b>{{ key }}</b>: {{ value[0] }} C on {{ months[value[1]] }} {{ value[2] }}</li>
-                    {% endfor %}
+            {% for key, value in result.items() %}
+                {% if key == 1 %}
+                    <ul>
+                        {% for key, value in value.items() %}
+                            <li><b>{{ key }}</b>: {{ value[0] }} C on {{ months[value[1]] }} {{ value[2] }}</li>
+                        {% endfor %}
+                {% endif %}
                 </ul>
             {% endfor %}
     {% endif %}
@@ -28,20 +30,21 @@
                     <h2> An unexpected error occurred </h2>
                 {% endif %}
 
-        <h1>Weather Report for Task Two</h1>
+        <h1>Weather Report for Task 2</h1>
         {% for key, value in result.items() %}
             <ul>
-
-                {% for key, v in value.items() %}
-                <li><b>{{ key }}</b>: {{ v }} C </li>
-                {% endfor %}
+                {% if key == 2 %}
+                    {% for key, v in value.items() %}
+                    <li><b>{{ key }}</b>: {{ v }} C </li>
+                    {% endfor %}
+                {% endif %}
 
             </ul>
         {% endfor %}
     {% endif %}
 
     {% if show_task_three %}
-        <h1>Weather Report for Task Three</h1>
+        <h1>Weather Report for Task 3</h1>
         {% for key, data in result[3].items() %}
             <ul>
                 {% if data[0] %}

@@ -88,64 +88,6 @@ class ReadWeather():
         Returns:
             weather_data (dict): weather data
         """
-        # files_directory = "/home/winston/documents/code/training-plan/weather-man-cli/weatherfiles/"
-        # files = os.listdir(files_directory)
-        # # print(self.weather_data)
-        # for f in files:
-        #     with open(f"{files_directory}/{f}", 'r') as reader:
-        #         x = reader.readlines()
-        #         data = x[1:]
-        #         # Extract the year & month
-        #         year = str(x[1])[:4]
-        #         # print(x[1])
-        #         month = str(x[1])[5:8]
-        #         if month[-1] == '-':
-        #             month = month[:-1]
-        #         if month[-2] == '-':
-        #             month = month[:-2]
-        #         # print('month', month)
-        #         if year not in self.weather_data:
-        #             self.weather_data[year] = {}
-        #         if month not in self.weather_data[year]:
-        #             self.weather_data[year][month] = {}
-        #         for d in data:
-        #             # print(d)
-        #             # print('month', month)
-        #             if int(month) <= 9:
-        #                 day = str(d)[7:9]
-        #             else:
-        #                 # print('yes')
-        #                 day = str(d)[8:10]
-        #                 # print(day)
-        #             # print(day)
-        #             # For single-digit days, remove trailing comma
-        #             if day[-1] == ',':
-        #                 day = day[:-1]
-        #                 # print('day after operation', day)
-        #             if day not in self.weather_data[year][month]:
-        #                 self.weather_data[year][month][day] = []
-        #
-        #             if not self.weather_data[year][month][day]:
-        #                 temp_list = self.convert_temp_reading_to_list(d)
-        #                 # print(temp_list)
-        #                 # For task 1
-        #                 # Add max temp
-        #                 self.weather_data[year][month][day].append(temp_list[1])
-        #                 # Add min temp
-        #                 self.weather_data[year][month][day].append(temp_list[3])
-        #                 # Add max humidity
-        #                 self.weather_data[year][month][day].append(temp_list[8])
-        #                 # TODO: For task 2
-        #                 # Add mean humidity
-        #                 self.weather_data[year][month][day].append(temp_list[7])
-
-        ## Code to write weather data to a file
-        # if not os.path.exists(file_path):
-        #     # Create and write data to the new file
-        #     data_str = json.dumps(self.weather_data, indent=4)
-        #     with open(file_path, 'w') as file:
-        #         file.write(data_str)
-        #     print(f"File weather-data.txt created and data written to it.")
         current_directory = os.getcwd()
         file_path = f"{current_directory}/weather-data.txt"
         if os.path.exists(file_path):
@@ -170,7 +112,6 @@ class CalculateTemp(ReadWeather):
         self.weather_readings = weather_instance.weather_data
         self.exception_msg = "Please enter a valid integer value from 2004 - 2016"
         self.year_month_exception_msg = "Invalid date format entered! Please enter a date of format: YYYY/MM"
-        # print(self.weather_readings)
         # For task 1
         self.max_temp, self.max_humidity, self.min_temp = 0, 0, 100
         # Data structure to hold data of result 1
@@ -262,21 +203,15 @@ class CalculateTemp(ReadWeather):
            - year (str): year being queried. e.g. 2002
         """
         self.validate_year(year)
-        # print(f"Year entered: {year}")
         year_data = self.weather_readings.get(year)
-        # print(f"Year data: {year_data}")
         for key, value in year_data.items():
             month = int(key)
-            # print(f"{key}: {value}")
             for k, v in value.items():
                 day = int(k)
-                # print(f"{k}: {v}")
                 # Find max temp
                 # If max_temp value exists
                 if v[0]:
-                    # print(f"in v[0]: {v[0]}")
                     if self.max_temp < int(v[0]):
-                        # print("in if")
                         self.max_temp = int(v[0])
                         if self.result['Highest']:
                             self.result['Highest'][0] = self.max_temp
@@ -287,11 +222,9 @@ class CalculateTemp(ReadWeather):
                             self.result['Highest'].append(self.max_temp)
                             self.result['Highest'].append(month)
                             self.result['Highest'].append(day)
-                            # print(f"in else, {self.result['Highest']}")
 
                 if v[1]:
                     if self.min_temp > int(v[1]):
-                        # print(f"in if 2, readings: {v}")
                         self.min_temp = int(v[1])
                         if self.result['Lowest']:
                             self.result['Lowest'][0] = self.min_temp
@@ -303,7 +236,6 @@ class CalculateTemp(ReadWeather):
                             self.result['Lowest'].append(day)
                 if v[2]:
                     if self.max_humidity < int(v[2]):
-                        # print(f"in if 3, {self.max_humidity}, readings: {v}")
                         self.max_humidity = int(v[2])
                         if self.result['Humidity']:
                             self.result['Humidity'][0] = self.max_humidity
@@ -329,20 +261,14 @@ class CalculateTemp(ReadWeather):
         Arguments
             - Date (str): Date being queried. e.g. 2005/6
         """
-        # month = "2005/11"
         self.validate_year_and_month(date)
         user_input = date.split('/')
-        print(f'DATE: {user_input}')
         year_data = self.weather_readings.get(user_input[0])
-        # print(year_data)
         for key, value in year_data.items():
-            # print(f"{key}: {value}")
             if key == user_input[1]:
-                # print(value)
                 max_temp_count, min_temp_count, mean_humidity_count = 0, 0, 0
                 max_temp_sum, min_temp_sum, mean_humidity_sum = 0, 0, 0
                 for k, v in value.items():
-                    # print(f"{k}: {v}")
                     day = int(k)
                     # If max_temp value exists
                     if v[0]:
@@ -418,8 +344,6 @@ class CalculateTemp(ReadWeather):
 
         # Split prompt into a list
         refined_prompt = prompt.split(' ')
-        # print(f"prompt: {prompt}")
-        # TODO: create a class for creating reports, and look into how you will store/keep track of different reports
         report = GenerateReports()
         for i in range(len(refined_prompt)):
             # Call method 1
@@ -461,9 +385,7 @@ class GenerateReports():
             self.report (dict): The generated report.
         """
         error_msg = 'No data found for task {key} (flag: {flag}), please try another range.'
-        # response = {}
         if self.report and not cli:
-            print(self.report)
             return self.report
 
         elif self.report and cli:
