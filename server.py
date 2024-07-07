@@ -52,27 +52,27 @@ class MyRoutes:
         self.app.add_url_rule('/task2', 'task_two', self.task_two)
         self.app.add_url_rule('/task3', 'task_three', self.task_three)
         self.app.add_url_rule('/multiple_reports', 'multiple_reports', self.multiple_reports)
-        self.app.add_url_rule('/api/query', 'query db', self.query_db, methods=['POST'])
+        # self.app.add_url_rule('/api/query', 'query db', self.query_db, methods=['POST'])
 
 
     def hello_world(self):
         return render_template('index.html')
 
-    def query_db(self):
-        """
-        Endpoint that accepts a query from the UI
-        """
-        data = request.get_json()
-        options = data.get('options', [])
-        print(f'options: {options}')
-        if len(options) == 1:
-            for option in options:
-                if option == 'one':
-                   return self.task_one(default=True)
-                # elif option == 'two':
+    # def query_db(self):
+    #     """
+    #     Endpoint that accepts a query from the UI
+    #     """
+    #     data = request.get_json()
+    #     options = data.get('options', [])
+    #     print(f'options: {options}')
+    #     if len(options) == 1:
+    #         for option in options:
+    #             if option == 'one':
+    #                return self.task_one(default=True)
+    #             # elif option == 'two':
 
-                # elif option == 'three':
-        return {"status": 200}
+    #             # elif option == 'three':
+    #     return {"status": 200}
         
     def task_one(self, default=False):
         """
